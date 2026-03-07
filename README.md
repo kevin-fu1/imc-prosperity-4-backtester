@@ -1,9 +1,9 @@
 # IMC Prosperity 4 Backtester
 
-This repository (`kevin-fu1/imc-prosperity-4-backtester`) contains a Python-based backtester designed in preparation for the [IMC Prosperity 4 challenge](https://prosperity.imc.com/). 
+This repository contains a Python-based backtester designed in preparation for the [IMC Prosperity 4 challenge](https://prosperity.imc.com/). 
 
 **Key Notes:**
-* **Origin:** This project is heavily based on `jmerle/imc-prosperity-3-backtester`, but it has been rewritten to utilize a more Object-Oriented Programming (OOP) style. 
+* **Origin:** This project is heavily based on [jmerle/imc-prosperity-3-backtester](https://github.com/jmerle/imc-prosperity-3-backtester), but it has been rewritten to utilize a more Object-Oriented Programming (OOP) style. 
 * **Current Status:** The backtester currently works for Prosperity 3 data and logic. It is structured so that it can easily be adapted for Prosperity 4 once the official details and environment specifications are published.
 * **License:** MIT License.
 
