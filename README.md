@@ -5,8 +5,6 @@ This repository contains a Python-based backtester designed in preparation for t
 **Key Notes:**
 * **Origin:** This project is heavily based on [jmerle/imc-prosperity-3-backtester](https://github.com/jmerle/imc-prosperity-3-backtester), but it has been rewritten to utilize a more Object-Oriented Programming (OOP) style. 
 * **Current Status:** The codebase is up to date with the Prosperity 4 tutorial round.
-* **Output File Status:** The output file still needs to be updated to match the Prosperity 4 log format.
-* **Visualizer Compatibility:** The generated log file is not compatible with the Prosperity 3 visualizer. I am currently working on a Prosperity 4 visualizer.
 * **License:** MIT License.
 
 ---
