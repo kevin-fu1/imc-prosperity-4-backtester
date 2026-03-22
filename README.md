@@ -10,17 +10,28 @@ This repository contains a Python-based backtester designed in preparation for t
 ---
 
 **Usage:**
-Basic usage:
+
+**Basic usage:**
 
 Run the backtester on an algorithm using all data from round 0
 ```bash
  $ python -m prosperity4bt <path to algorithm file> 0
  ```
 
+Run the backtester on an algorithm using all data from round 0, day '-2'
+```bash
+ $ python -m prosperity4bt <path to algorithm file> 0--2
+ ```
+
 If you see: `No module named 'datamodel'`, set PYTHONPATH to the folder containing datamodel.py:  
 ```bash
  $env:PYTHONPATH="<path to>\imc-prosperity-4-backtester\prosperity4bt"
 ```
+
+**Run/Debug from Pycham**
+
+Add Run/Debug Configuration:
+![Backtester Architecture](images/pycharm.png)
 ---
 ## Overall Structure & How It Works
 

@@ -113,7 +113,6 @@ class TestRunner:
 
         return state
 
-
     # def __validate_orders(self, orders: dict[Symbol, list[Order]]) -> None:
     #     for key, value in orders.items():
     #         if not isinstance(key, str):
