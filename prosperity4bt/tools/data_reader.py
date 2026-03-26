@@ -113,6 +113,17 @@ class PackageResourcesReader(BackDataReader):
             return wrap_in_context_manager(None)
 
 
+class FileSystemReader(BackDataReader):
+    def __init__(self, data_dir: Path):
+        self.data_dir = data_dir
+
+    def _read_file_content(self, path_parts: list[str]) -> ContextManager[Optional[Path]]:
+        file_path = self.data_dir.joinpath(*path_parts)
+        if file_path.is_file():
+            return wrap_in_context_manager(file_path)
+        return wrap_in_context_manager(None)
+
+
 @contextmanager
 def wrap_in_context_manager(value):
     yield value

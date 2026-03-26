@@ -62,8 +62,8 @@ class BackTester:
 
     def __get_data_reader(self, data_dir: Optional[Path]) -> BackDataReader:
         if data_dir is not None:
-            # return FileSystemReader(data_root)
-            return None
+            from prosperity4bt.tools.data_reader import FileSystemReader
+            return FileSystemReader(data_dir)
         else:
             return PackageResourcesReader()
 
