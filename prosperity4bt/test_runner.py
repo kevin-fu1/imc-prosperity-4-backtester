@@ -15,7 +15,7 @@ from prosperity4bt.tools.order_match_maker import OrderMatchMaker
 
 class TestRunner:
 
-    def __init__(self, trader, data_reader: BackDataReader, round: int, day: int, show_progress_bar: bool=False, print_output: bool=False, trade_matching_mode=TradeMatchingMode.all):
+    def __init__(self, trader, data_reader: BackDataReader, round: int, day: int, show_progress_bar: bool=False, print_output: bool=False, trade_matching_mode=TradeMatchingMode.all, maf_factor: float=1.0):
         self.trader = trader
         self.data_reader = data_reader
         self.round = round
@@ -23,6 +23,7 @@ class TestRunner:
         self.show_progress_bar = show_progress_bar
         self.print_output = print_output
         self.trade_matching_mode = trade_matching_mode
+        self.maf_factor = maf_factor
 
 
     def run(self):
@@ -85,10 +86,10 @@ class TestRunner:
             row = data.prices[state.timestamp][product]
 
             for price, volume in zip(row.bid_prices, row.bid_volumes):
-                order_depth.buy_orders[price] = volume
+                order_depth.buy_orders[price] = int(round(volume * self.maf_factor))
 
             for price, volume in zip(row.ask_prices, row.ask_volumes):
-                order_depth.sell_orders[price] = -volume
+                order_depth.sell_orders[price] = -int(round(volume * self.maf_factor))
 
             state.order_depths[product] = order_depth
 
@@ -148,6 +149,6 @@ class TestRunner:
 
 
     def __match_orders(self, state: TradingState, data: BacktestData, orders: dict[Symbol, list[Order]], result: BacktestResult) -> None:
-        match_maker = OrderMatchMaker(state, data, orders, self.trade_matching_mode)
+        match_maker = OrderMatchMaker(state, data, orders, self.trade_matching_mode, self.maf_factor)
         matched_trades = match_maker.match()
         result.trades.extend(matched_trades)

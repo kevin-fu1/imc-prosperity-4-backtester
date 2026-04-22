@@ -118,6 +118,19 @@ class FileSystemReader(BackDataReader):
     def __init__(self, data_dir: Path):
         self.data_dir = data_dir
 
+    def available_days(self, round: int) -> list[int]:
+        round_dir = self.data_dir / f"round{round}"
+        if not round_dir.is_dir():
+            return []
+        days = []
+        for f in round_dir.glob(f"prices_round_{round}_day_*.csv"):
+            day_str = f.stem.split("_day_")[-1]
+            try:
+                days.append(int(day_str))
+            except ValueError:
+                pass
+        return sorted(days)
+
     def _read_file_content(self, path_parts: list[str]) -> ContextManager[Optional[Path]]:
         file_path = self.data_dir.joinpath(*path_parts)
         if file_path.is_file():

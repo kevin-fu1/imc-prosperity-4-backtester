@@ -21,6 +21,7 @@ def run(
     no_merge_pnl: Annotated[bool, Option("--no-merge-pnl", help="Merge profit and loss across days.")] = False,
     no_vis: Annotated[bool, Option("--no-vis", help="Open backtest results in https://kevin-fu1.github.io/imc-prosperity-4-visualizer/ when done.")] = False,
     original_timestamps: Annotated[bool, Option("--original-timestamps", help="Preserve original timestamps in output log rather than making them increase across days.")] = False,
+    no_maf: Annotated[bool, Option("--no-maf", help="Simulate NOT winning the MAF: multiply all LOB and market-trade volumes by 0.8 (default = full market = winning MAF).")] = False,
 ):
     if out is not None and no_out:
         print("Error: --out and --no-out are mutually exclusive")
@@ -34,6 +35,7 @@ def run(
     options.merge_profit_loss = not no_merge_pnl
     options.show_visualizer = not no_vis
     options.merge_timestamps = not original_timestamps
+    options.maf_factor = 0.8 if no_maf else 1.0
 
     back_tester = BackTester(options)
     back_tester.run()

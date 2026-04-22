@@ -9,15 +9,25 @@ from prosperity4bt.models.test_options import TradeMatchingMode
 #  then the algorithm will try to fill the orders from the market_trades
 class OrderMatchMaker:
 
-    def __init__(self, state: TradingState, back_data: BacktestData, orders: dict[Symbol, list[Order]], trade_matching_mode: TradeMatchingMode):
+    def __init__(self, state: TradingState, back_data: BacktestData, orders: dict[Symbol, list[Order]], trade_matching_mode: TradeMatchingMode, maf_factor: float = 1.0):
         self.state = state
         self.back_data = back_data
         self.orders = orders
         self.trade_matching_mode = trade_matching_mode
+        self.maf_factor = maf_factor
 
     def match(self) -> list[TradeRow]:
         result = []
         market_trades = self.back_data.get_market_trades_at(self.state.timestamp)
+
+        # Scale market trade quantities to simulate MAF effect on passive fills.
+        # maf_factor=1.0 (default) = full market = winning MAF (historical data as-is).
+        # maf_factor=0.8 = only 80% of fill bots are active = losing MAF.
+        if self.maf_factor != 1.0:
+            for product_trades in market_trades.values():
+                for mt in product_trades:
+                    mt.buy_quantity  = int(round(mt.buy_quantity  * self.maf_factor))
+                    mt.sell_quantity = int(round(mt.sell_quantity * self.maf_factor))
 
         timestamp = self.state.timestamp
 

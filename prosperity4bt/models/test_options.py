@@ -21,6 +21,7 @@ class TestOptions:
         self.merge_profit_loss = False
         self.show_visualizer = False
         self.merge_timestamps = True
+        self.maf_factor = 1.0
 
 
 class RoundDayOption:
