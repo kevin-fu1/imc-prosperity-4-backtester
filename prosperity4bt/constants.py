@@ -1,6 +1,21 @@
 LIMITS = {
+    # ── Round 0 / tutorial ─────────────────────────────────────────
     "TOMATOES": 80,
     "EMERALDS": 80,
+    # ── Round 1 & 2 ────────────────────────────────────────────────
     "ASH_COATED_OSMIUM": 80,
-    "INTARIAN_PEPPER_ROOT": 80
+    "INTARIAN_PEPPER_ROOT": 80,
+    # ── Round 3 ────────────────────────────────────────────────────
+    "HYDROGEL_PACK": 50,
+    "VELVETFRUIT_EXTRACT": 50,
+    "VEV_4000": 200,
+    "VEV_4500": 200,
+    "VEV_5000": 200,
+    "VEV_5100": 200,
+    "VEV_5200": 200,
+    "VEV_5300": 200,
+    "VEV_5400": 200,
+    "VEV_5500": 200,
+    "VEV_6000": 200,
+    "VEV_6500": 200,
 }
