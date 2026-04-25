@@ -6,7 +6,7 @@ class SummaryPrinter:
     @staticmethod
     def print_day_summary(result: BacktestResult):
         final_activities = result.final_activities()
-        product_lines = [f"{a.symbol}: {a.profit_loss:,.0f}" for a in sorted(final_activities, key=lambda x: x.profit_loss, reverse=True)]
+        product_lines = [f"{a.symbol}: {a.profit_loss:,.0f}" for a in sorted(final_activities, key=lambda x: x.symbol)]
         total_profit = sum(a.profit_loss for a in final_activities)
         print(*product_lines, sep="\n")
         print(f"Total profit: {total_profit:,.0f}")
