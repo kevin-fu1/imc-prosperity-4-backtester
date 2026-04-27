@@ -78,7 +78,8 @@ class BackTester:
             self.options.show_progress,
             self.options.print_output,
             self.options.trade_matching_mode,
-            self.options.maf_factor)
+            self.options.maf_factor,
+            same_tick_trades=self.options.same_tick_trades)
         result = test_runner.run()
         return result
 

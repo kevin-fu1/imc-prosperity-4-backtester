@@ -22,6 +22,7 @@ class TestOptions:
         self.show_visualizer = False
         self.merge_timestamps = True
         self.maf_factor = 1.0
+        self.same_tick_trades = False
 
 
 class RoundDayOption:

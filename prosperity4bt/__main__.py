@@ -22,6 +22,7 @@ def run(
     no_vis: Annotated[bool, Option("--no-vis", help="Open backtest results in https://kevin-fu1.github.io/imc-prosperity-4-visualizer/ when done.")] = False,
     original_timestamps: Annotated[bool, Option("--original-timestamps", help="Preserve original timestamps in output log rather than making them increase across days.")] = False,
     no_maf: Annotated[bool, Option("--no-maf", help="Simulate NOT winning the MAF: multiply all LOB and market-trade volumes by 0.8 (default = full market = winning MAF).")] = False,
+    same_tick_trades: Annotated[bool, Option("--same-tick-trades", help="Pre-load current tick's market trades into state.market_trades before the bot runs, matching live simulation behavior. Default: off (one-tick lag, legacy behavior).")] = False,
 ):
     if out is not None and no_out:
         print("Error: --out and --no-out are mutually exclusive")
@@ -36,6 +37,7 @@ def run(
     options.show_visualizer = not no_vis
     options.merge_timestamps = not original_timestamps
     options.maf_factor = 0.8 if no_maf else 1.0
+    options.same_tick_trades = same_tick_trades
 
     back_tester = BackTester(options)
     back_tester.run()

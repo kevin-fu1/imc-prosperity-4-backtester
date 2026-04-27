@@ -15,7 +15,7 @@ from prosperity4bt.tools.order_match_maker import OrderMatchMaker
 
 class TestRunner:
 
-    def __init__(self, trader, data_reader: BackDataReader, round: int, day: int, show_progress_bar: bool=False, print_output: bool=False, trade_matching_mode=TradeMatchingMode.all, maf_factor: float=1.0):
+    def __init__(self, trader, data_reader: BackDataReader, round: int, day: int, show_progress_bar: bool=False, print_output: bool=False, trade_matching_mode=TradeMatchingMode.all, maf_factor: float=1.0, same_tick_trades: bool=False):
         self.trader = trader
         self.data_reader = data_reader
         self.round = round
@@ -24,6 +24,7 @@ class TestRunner:
         self.print_output = print_output
         self.trade_matching_mode = trade_matching_mode
         self.maf_factor = maf_factor
+        self.same_tick_trades = same_tick_trades
 
 
     def run(self):
@@ -44,6 +45,8 @@ class TestRunner:
         timestamps_iterator = tqdm(timestamps, ascii=True) if self.show_progress_bar else timestamps
         for timestamp in timestamps_iterator:
             state = self.__initialize_trade_state(state, data, timestamp)
+            if self.same_tick_trades:
+                self.__preload_market_trades(state, data, timestamp)
             orders = self.__run_trader(state, result, timestamp)
 
             # self.__validate_orders(orders)
@@ -111,6 +114,17 @@ class TestRunner:
             )
 
         return state
+
+    def __preload_market_trades(self, state: TradingState, data: BacktestData, timestamp: int) -> None:
+        """Pre-load tick T's market trades so the bot sees them when it runs at T.
+        Matches live simulation: state.market_trades contains trades from earlier
+        in the same tick (makers + early takers that ran before our bot).
+        Without this, the backtester shows the previous tick's leftover trades."""
+        current = data.trades.get(timestamp, {})
+        state.market_trades = {product: list(trades) for product, trades in current.items()}
+        for product in data.products:
+            if product not in state.market_trades:
+                state.market_trades[product] = []
 
     # def __validate_orders(self, orders: dict[Symbol, list[Order]]) -> None:
     #     for key, value in orders.items():
