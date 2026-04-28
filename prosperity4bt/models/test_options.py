@@ -7,6 +7,7 @@ class TradeMatchingMode(str, Enum):
     all = "all"
     worse = "worse"
     none = "none"
+    server_like = "server_like"
 
 
 class TestOptions:

@@ -92,7 +92,7 @@ class BackDataReader:
             return [1, 2, 3]
         if round == 5:
             return [2, 3, 4]
-        return [0]
+        return [0, 1]
 
     @abstractmethod
     def _read_file_content(self, path_parts: list[str]) -> ContextManager[Optional[Path]]:

@@ -16,7 +16,7 @@ def run(
     no_out: Annotated[bool, Option("--no-out", help="Skip saving output log.")] = False,
     data: Annotated[Optional[Path], Option(help="Path to data directory.", show_default=False, exists=True, file_okay=False, dir_okay=True, resolve_path=True)] = None,
     print_output: Annotated[bool, Option("--print", help="Print the trader's output to stdout while it's running.")] = False,
-    match_trades: Annotated[TradeMatchingMode, Option(help="How to match orders against market trades. 'all' matches trades with prices equal to or worse than your quotes, 'worse' matches trades with prices worse than your quotes, 'none' does not match trades against orders at all.")] = TradeMatchingMode.worse,
+    match_trades: Annotated[TradeMatchingMode, Option(help="How to match orders against market trades. 'all' matches trades with prices equal to or worse than your quotes, 'worse' matches trades with prices worse than your quotes, 'none' does not match trades against orders at all.")] = TradeMatchingMode.server_like,
     no_progress: Annotated[bool, Option("--no-progress", help="Don't show progress bars.")] = False,
     no_merge_pnl: Annotated[bool, Option("--no-merge-pnl", help="Merge profit and loss across days.")] = False,
     no_vis: Annotated[bool, Option("--no-vis", help="Open backtest results in https://kevin-fu1.github.io/imc-prosperity-4-visualizer/ when done.")] = False,
